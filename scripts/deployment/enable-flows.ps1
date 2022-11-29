@@ -14,6 +14,13 @@ Param(
 $BuildToolsConnectionString = "AuthType=ClientSecret;url=$EnvironmentUrl;ClientId=$ApplicationId;ClientSecret=$ClientSecret";
 $BuildToolsSolutionName = 'Akoyanet';
 
+Write-Host "Input params:"
+Write-Host "  EnvironmentUrl: $EnvironmentUrl"
+Write-Host "  TenantId: $TenantId"
+Write-Host "  ApplicationId: $ApplicationId"
+Write-Host "  ClientSecret: $ClientSecret"
+Write-Host ""
+
 # Install modules
 Write-Host 'Installing required modules';
 Install-Module -Name Microsoft.PowerApps.Administration.PowerShell -Scope CurrentUser -Force;
