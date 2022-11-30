@@ -23,7 +23,7 @@ Write-Host ""
 
 # Install modules
 Write-Host 'Installing required modules';
-Install-Module -Name Microsoft.PowerApps.Administration.PowerShell -Scope CurrentUser -Force;
+Install-Module -Name Microsoft.PowerApps.Administration.PowerShell -AllowClobber -Scope CurrentUser -Force;
 Install-Module  Microsoft.Xrm.Data.PowerShell -Scope CurrentUser -Force;
 
 # Login to PowerApps for the Admin commands
