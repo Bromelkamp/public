@@ -5,18 +5,17 @@
 
 [CmdletBinding()]
 Param(
-    [string] $DataverseConnectionString,
+    [string] $EnvironmentUrl,
     [Guid] $TenantId,
     [Guid] $ApplicationId,
     [string] $ClientSecret 
 )
 
 $BuildToolsConnectionString = "AuthType=ClientSecret;url=$EnvironmentUrl;ClientId=$ApplicationId;ClientSecret=$ClientSecret";
-
 $BuildToolsSolutionName = 'Akoyanet';
 
 Write-Host "Input params:"
-Write-Host "  DataverseConnectionString: $DataverseConnectionString"
+Write-Host "  EnvironmentUrl: $EnvironmentUrl"
 Write-Host "  TenantId: $TenantId"
 Write-Host "  ApplicationId: $ApplicationId"
 Write-Host "  ClientSecret: $ClientSecret"
@@ -33,7 +32,7 @@ Add-PowerAppsAccount -Endpoint prod -TenantID $TenantId -ApplicationId $Applicat
  
 # Login to PowerApps for the Xrm.Data commands
 Write-Host "Login to PowerApps for the Xrm.Data commands";
-$conn = Get-CrmConnection -ConnectionString $DataverseConnectionString;
+$conn = Get-CrmConnection -ConnectionString $BuildToolsConnectionString;
 if (!$conn)
 {
     Write-Host "##vso[task.logissue type=error]Unable to get CRM Connection";
@@ -101,24 +100,6 @@ $existingconnectionreferences = (ConvertTo-Json ($connectionsrefs | Select-Objec
 #Write-Host "##vso[task.setvariable variable=CONNECTION_REFS]$existingconnectionreferences"
 Write-Host "Connection References: $existingconnectionreferences";
 
-
-#Dev notes (2022-10-28): Get-AdminPowerAppConnection is returning NULL when the (Add-PowerAppsAccount) user is a SPN user.
-
-#  https://powerusers.microsoft.com/t5/Power-Apps-Governance-and/Get-AdminPowerAppConnection-is-throwing-error/td-p/510338
-#    Does Get-AdminPowerAppConnection require license?
-#      (from web site: What's more, only premium license of powerapps (per app plan/per user plan) could use this command)
-#  https://learn.microsoft.com/en-us/power-platform/admin/powershell-create-service-principal#limitations-of-service-principals
-#    Limitations of service principals, Currently, service principal authentication works for environment management,
-#    tenant settings, and Power Apps management. Cmdlets related to Flow are supported for service principal
-#    authentication in situations where a license isn't required, as it isn't possible to assign licenses
-#    to service principal identities in Azure Active Directory.
-
-#  Log interactive into tenant:
-#    Add-PowerAppsAccount -Endpoint prod -TenantID $tenantId
-
-#  Register an admin management application
-#    New-PowerAppManagementApp -ApplicationId 'a86b9632-42bf-4dfe-83c8-bbc95145504b'
- 
 # Get the first connection reference connector that is not null and load it to find who it was created by
 #$connections = Get-AdminPowerAppConnection -EnvironmentName $conn.EnvironmentId -Filter $connectionsrefs[0].connectionid
 $connections = Get-AdminPowerAppConnection -EnvironmentName $conn.EnvironmentId;
@@ -148,7 +129,7 @@ if (!$user)
 }
  
 # Create a new Connection to impersonate the creator of the connection reference
-$impersonatedconn = Get-CrmConnection -ConnectionString $DataverseConnectionString;
+$impersonatedconn = Get-CrmConnection -ConnectionString $BuildToolsConnectionString;
 if (!$impersonatedconn)
 {
     Write-Host "##vso[task.logissue type=error]Unable to create impersonated connection";
@@ -230,44 +211,3 @@ Write-Host "";
 Write-Host "DONE.";
 
 exit;
-
- 
-## Get the flows that are turned off
-#Write-Host "Get Flows that are turned off"
-#$fetchFlows = @"
-#<fetch>
-#    <entity name='workflow'>
-#    <attribute name='category' />
-#    <attribute name='name' />
-#    <attribute name='statecode' />
-#    <filter>
-#        <condition attribute='category' operator='eq' value='5' />
-#        <condition attribute='statecode' operator='eq' value='0' />
-#    </filter>
-#    <link-entity name='solutioncomponent' from='objectid' to='workflowid'>
-#        <link-entity name='solution' from='solutionid' to='solutionid'>
-#        <filter>
-#            <condition attribute='uniquename' operator='eq' value='$BuildToolsSolutionName' />
-#        </filter>
-#        </link-entity>
-#    </link-entity>
-#    </entity>
-#</fetch>
-#"@;
-# 
-#$flows = (Get-CrmRecordsByFetch  -conn $conn -Fetch $fetchFlows -Verbose).CrmRecords
-#if ($flows.Count -eq 0)
-#{
-#    Write-Host "##vso[task.logissue type=warning]No Flows that are turned off in '$BuildToolsSolutionName.'"
-#    Write-Output "No Flows that are turned off in '$BuildToolsSolutionName'"
-#    exit(0)
-#}
-#
-#$flowJson = (ConvertTo-Json ($flows | Select-Object -Property workflowid, category, name, statecode))
-#Write-Host "Flows to enable: $flowJson"
-# 
-## Turn on flows
-#foreach ($flow in $flows){
-#    Write-Output "Turning on Flow:$(($flow).name)"
-#    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id $flow.workflowid -StateCode Activated -StatusCode Activated -Verbose -Debug
-#}
