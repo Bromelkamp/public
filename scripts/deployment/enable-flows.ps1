@@ -5,17 +5,18 @@
 
 [CmdletBinding()]
 Param(
-    [string] $EnvironmentUrl,
+    [string] $DataverseConnectionString,
     [Guid] $TenantId,
     [Guid] $ApplicationId,
     [string] $ClientSecret 
 )
 
 $BuildToolsConnectionString = "AuthType=ClientSecret;url=$EnvironmentUrl;ClientId=$ApplicationId;ClientSecret=$ClientSecret";
+
 $BuildToolsSolutionName = 'Akoyanet';
 
 Write-Host "Input params:"
-Write-Host "  EnvironmentUrl: $EnvironmentUrl"
+Write-Host "  DataverseConnectionString: $DataverseConnectionString"
 Write-Host "  TenantId: $TenantId"
 Write-Host "  ApplicationId: $ApplicationId"
 Write-Host "  ClientSecret: $ClientSecret"
@@ -32,7 +33,7 @@ Add-PowerAppsAccount -Endpoint prod -TenantID $TenantId -ApplicationId $Applicat
  
 # Login to PowerApps for the Xrm.Data commands
 Write-Host "Login to PowerApps for the Xrm.Data commands";
-$conn = Get-CrmConnection -ConnectionString $BuildToolsConnectionString;
+$conn = Get-CrmConnection -ConnectionString $DataverseConnectionString;
 if (!$conn)
 {
     Write-Host "##vso[task.logissue type=error]Unable to get CRM Connection";
@@ -147,7 +148,7 @@ if (!$user)
 }
  
 # Create a new Connection to impersonate the creator of the connection reference
-$impersonatedconn = Get-CrmConnection -ConnectionString $BuildToolsConnectionString;
+$impersonatedconn = Get-CrmConnection -ConnectionString $DataverseConnectionString;
 if (!$impersonatedconn)
 {
     Write-Host "##vso[task.logissue type=error]Unable to create impersonated connection";
