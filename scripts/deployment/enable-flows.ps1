@@ -183,22 +183,58 @@ try
     #statuscode: 1 (Draft)
     #statuscode: 2 (Activated)
 
-    #Write-Host "Turning on Flow: GOapply Document Move with Question Name";
-    #Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id 'b2c6226f-9cfc-ec11-82e5-000d3a596120' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "GOapply Add All Applications to Review Group";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '2c618902-7de2-ec11-bb3d-0022480c598c' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
 
-    #Write-Host "Turning on Flow: GOapply Add Request to Review Group";
-    #Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '5b3644c7-00f7-ec11-bb3d-000d3a5c0906' -StateCode Activated -StatusCode Activated -Verbose -Debug;
-    
-    #Write-Host "Turning on Flow: GOapply Duplicate Review Group";
-    #Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id 'e98d7973-d2e1-ec11-bb3d-0022480c5141' -StateCode Activated -StatusCode Activated -Verbose -Debug;
-    
-    #Write-Host "Turning on Flow: GOapply Duplicate Review Group and Reviewers";
-    #Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '4a5431f9-d5e1-ec11-bb3d-0022480c598c' -StateCode Activated -StatusCode Activated -Verbose -Debug;
-    
-    
-    
-    #Write-Host "Turning on Flow: GOapply Add All Applications to Review Group";
-    #Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '2c618902-7de2-ec11-bb3d-0022480c598c' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "GOapply Add Request to Review Group";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '5b3644c7-00f7-ec11-bb3d-000d3a5c0906' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
+    Write-Host "GOapply Add to Review Group";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id 'ef6d98cd-c1c4-ec11-a7b6-000d3a3be81d' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
+    Write-Host "GOapply Advance to Final Report Phase";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '01472d0b-f217-ed11-b83e-002248081438' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
+    Write-Host "GOapply AutoFill Next Phase";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id 'c566a946-22a6-ec11-983f-0022480b67c1' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
+    Write-Host "GOapply Document Move Version 2.0";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '93e74ef0-3976-ec11-8d21-000d3a5cf59d' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
+    Write-Host "GOapply Duplicate Application";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '4e3cd5d3-c58a-ec11-93b0-000d3a5b26c0' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
+    Write-Host "GOapply Duplicate Review Group";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id 'e98d7973-d2e1-ec11-bb3d-0022480c5141' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
+    Write-Host "GOapply Duplicate Review Group and Reviewers";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '4a5431f9-d5e1-ec11-bb3d-0022480c598c' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
+    Write-Host "GOapply Invite Constituent";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '76ae7a00-4e75-ec11-8943-00224809eefd' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
+    Write-Host "GOapply Invite Contact";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '33ccdc60-dd77-ec11-8d21-000d3a5cfdba' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
+    Write-Host "GOfund Invitation Email";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id 'eba79434-563b-ed11-9db1-000d3a59640f' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
+    Write-Host "GOfund Move Documents Flow";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '21197efa-da39-ed11-9db1-000d3a5a6918' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
 }
 catch
 {
