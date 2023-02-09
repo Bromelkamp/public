@@ -183,6 +183,10 @@ try
     #statuscode: 1 (Draft)
     #statuscode: 2 (Activated)
 
+    Write-Host "akoyaGO - Form Definition Audit";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '0911bb44-88a8-ed11-aad1-000d3a343b81' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
     Write-Host "GOapply Add All Applications to Review Group";
     Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '2c618902-7de2-ec11-bb3d-0022480c598c' -StateCode Activated -StatusCode Activated -Verbose -Debug;
     Write-Host "Completed.";
