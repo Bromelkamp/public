@@ -239,6 +239,16 @@ try
     Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '21197efa-da39-ed11-9db1-000d3a5a6918' -StateCode Activated -StatusCode Activated -Verbose -Debug;
     Write-Host "Completed.";
 
+    Write-Host "akoyaGO - Form Definition Audit";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '0911bb44-88a8-ed11-aad1-000d3a343b81' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
+    #"State": We are setting it to "3", which represents the "Draft" state. When you set a workflow to a "Draft" state, it disables it.
+    #"Status": We are setting it to "2", which represents the "Activated" status.
+
+    Write-Host "DISABLE: GOapply autofill form definition";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id 'a1d66cad-2ca6-ec11-983f-0022480b67c1' -State 3 -Status 2 -Verbose -Debug;
+    Write-Host "Completed.";
 }
 catch
 {
