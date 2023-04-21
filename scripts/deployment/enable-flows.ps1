@@ -247,7 +247,7 @@ try
     #"Status": We are setting it to "2", which represents the "Activated" status.
 
     Write-Host "DISABLE: GOapply autofill form definition";
-    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id 'a1d66cad-2ca6-ec11-983f-0022480b67c1' -State 3 -Status 2 -Verbose -Debug;
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id 'a1d66cad-2ca6-ec11-983f-0022480b67c1' -State 0 -Status 1 -Verbose -Debug;
     Write-Host "Completed.";
 }
 catch
