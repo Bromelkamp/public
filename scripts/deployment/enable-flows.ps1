@@ -83,6 +83,9 @@ $connectionrefFetch = @"
         </filter>
       </link-entity>
     </link-entity>
+    <link-entity name='systemuser' from='systemuserid' to='owninguser' alias='systemuser'>
+      <attribute name='domainname' />
+    </link-entity>
   </entity>
 </fetch>
 "@;
