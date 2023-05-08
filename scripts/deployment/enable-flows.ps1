@@ -234,6 +234,10 @@ try
     Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id '33ccdc60-dd77-ec11-8d21-000d3a5cfdba' -StateCode Activated -StatusCode Activated -Verbose -Debug;
     Write-Host "Completed.";
 
+    Write-Host "GOfund Daily Invitation Email";
+    Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id 'b3a1cd15-2cb9-ed11-83fe-000d3a343ab0' -StateCode Activated -StatusCode Activated -Verbose -Debug;
+    Write-Host "Completed.";
+
     Write-Host "GOfund Invitation Email";
     Set-CrmRecordState -conn $impersonatedconn -EntityLogicalName workflow -Id 'eba79434-563b-ed11-9db1-000d3a59640f' -StateCode Activated -StatusCode Activated -Verbose -Debug;
     Write-Host "Completed.";
