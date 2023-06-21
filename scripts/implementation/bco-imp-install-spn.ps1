@@ -108,9 +108,6 @@ function getAppConsentUri($tenantDomain) {
     "https://login.microsoftonline.com/$tenantDomain/oauth2/authorize?client_id=a86b9632-42bf-4dfe-83c8-bbc95145504b&response_type=code&redirect_uri=https://akoyago.com&nonce=doesntmatter&resource=https://graph.microsoft.com&prompt=admin_consent"
 }
 
-
-
-
 $hasAdmin = checkIsElevated
 if (!$hasAdmin) {
     throw "This action requires administrator privileges."
@@ -120,6 +117,7 @@ if ($PSVersionTable.PSEdition -ne "Desktop") {
     throw "This script must be run on PowerShell Desktop/Windows; the AzureAD module is not supported for PowershellCore yet!"
 }
 
+# validate required modules are installed
 ensureModules
 
 $ErrorActionPreference = "Stop"
@@ -138,14 +136,16 @@ else {
 }
 
 Write-Host @"
-
-Copy and paste the following URL in a browser to grant consent.
+#################################################################
+Copy and paste the following URL in a browser to grant consent:
 
 "@
 
 Write-Host $(getAppConsentUri $session.TenantDomain)
 
 Write-Host @"
+#################################################################
+
 
 Done.
 
