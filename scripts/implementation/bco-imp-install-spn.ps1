@@ -71,7 +71,8 @@ function checkIsElevated {
 function connectAAD {
     Write-Host @"
 
-Connecting to AzureAD: Please log in, using your Dynamics365 / Power Platform tenant ADMIN credentials:
+Connecting to AzureAD.
+Please log in, using your Dynamics365 / Power Platform tenant ADMIN credentials:
 
 "@
     try {
@@ -136,7 +137,9 @@ else {
 }
 
 Write-Host @"
+
 #################################################################
+
 Copy and paste the following URL in a browser to grant consent:
 
 "@
@@ -144,6 +147,7 @@ Copy and paste the following URL in a browser to grant consent:
 Write-Host $(getAppConsentUri $session.TenantDomain)
 
 Write-Host @"
+
 #################################################################
 
 
