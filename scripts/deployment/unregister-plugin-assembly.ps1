@@ -30,6 +30,8 @@ Install-Module  Microsoft.Xrm.Data.PowerShell -Scope CurrentUser -Force;
 $baseConnection = Connect-CrmOnline -ServerUrl $BaseEnvironmentUrl -OAuthClientId $OAuthClientId -ClientSecret $ClientSecret -OAuthRedirectUri �https://tempuri.org�;
 Write-Host "Base connection established";
 
+$assemblyFetch = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'><entity name='pluginassembly'><filter type='and'><condition attribute='name' operator='eq' value='$AssemblyName' /></filter></entity></fetch>";
+
 #get base assemblies
 $baseAssemblyRecords = (Get-CrmRecordsByFetch $assemblyFetch).CrmRecords;
 $baseAssemblyCount = $baseAssemblyRecords.Count;
@@ -47,7 +49,6 @@ $connection = Connect-CrmOnline -ServerUrl $EnvironmentUrl -OAuthClientId $OAuth
 Write-Host "Connection established";
 
 #get the assemblies
-$assemblyFetch = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'><entity name='pluginassembly'><filter type='and'><condition attribute='name' operator='eq' value='$AssemblyName' /></filter></entity></fetch>";
 $assemblyRecords = (Get-CrmRecordsByFetch $assemblyFetch).CrmRecords;
 $assemblyCount = $assemblyRecords.Count;
 Write-Host "Retrieved $assemblyCount assembly(ies)";
